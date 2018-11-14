@@ -11,40 +11,46 @@ import javax.ws.rs.Produces;
 
 import com.infosys.business.service.DinosaurService;
 
-@Path("/account")
+@Path("/dinosaur")
 public class DinosaurEndpoint {
 
 	@Inject
 	private DinosaurService service;
 
-	@Path("/json")
+	@Path("/getAllDinosaurs")
 	@GET
 	@Produces({ "application/json" })
-	public String getAllAccounts() {
-		return service.getAllAccounts();
+	public String getAllDinosaurs() {
+		return service.getAllDinosaurs();
 	}
 
-	@Path("/json")
+	@Path("/addDinosaur")
 	@POST
 	@Produces({ "application/json" })
-	public String addAccount(String account) {
-		return service.addAccount(account);
+	public String addDinosaur(String dinosaur) {
+		return service.addDinosaur(dinosaur);
 	}
 
-	@Path("/json/{id}")
+	@Path("/updateDinosaur/{id}")
 	@PUT
 	@Produces({ "application/json" })
-	public String updateAccount(@PathParam("id") Long id, String account) {
-		return service.updateAccount(id, account);
+	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) {
+		return service.updateDinosaur(dinosaurid, dinosaur);
 	}
 
-	@Path("/json/{id}")
+	@Path("/deleteDinosaur/{id}")
 	@DELETE
 	@Produces({ "application/json" })
-	public String deleteAccount(@PathParam("id") Long id) {
-		return service.deleteAccount(id);
+	public String deleteDinosaur(@PathParam("id") Long dinosaurid) {
+		return service.deleteDinosaur(dinosaurid);
 
 	}
+//	@Path("/getClassroom/{id}")
+//	@GET
+//	@Produces({ "application/json" })
+//	public String getDinosaur(@PathParam("id") Long dinosaurid) {
+//		return service.getDinosaur(dinosaurid);
+//	}
 
 	public void setService(DinosaurService service) {
 		this.service = service;

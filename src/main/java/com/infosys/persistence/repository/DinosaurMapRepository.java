@@ -10,7 +10,7 @@ import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.transaction.Transaction;
 
-import com.infosys.persistence.domain.Users;
+import com.infosys.persistence.domain.Dinosaur;
 import com.infosys.util.JSONUtil;
 
 //	import com.qa.persistence.domain.Account;
@@ -22,47 +22,38 @@ import com.infosys.util.JSONUtil;
 public class DinosaurMapRepository implements DinosaurRepository {
 
 	private final Long INITIAL_COUNT = 1L;
-	private Map<Long, Users> accountMap;
+	private Map<Long, Dinosaur> dinosaurMap;
 	private Long ID;
 
 	@Inject
 	private JSONUtil util;
 
 	public DinosaurMapRepository() {
-		this.accountMap = new HashMap<Long, Users>();
+		this.dinosaurMap = new HashMap<Long, Dinosaur>();
 		ID = INITIAL_COUNT;
 //		initAccountMap();
 	}
 
-	public String getAllAccounts() {
-		return util.getJSONForObject(accountMap.values());
+	public String getAllDinosaurs() {
+		return util.getJSONForObject(dinosaurMap.values());
 	}
 
-	public String createAccount(String account) {
+	public String createDinosaur(String dinosaur) {
 		ID++;
-		Users newAccount = util.getObjectForJSON(account, Users.class);
-		accountMap.put(ID, newAccount);
-		return account;
+		Dinosaur newDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
+		dinosaurMap.put(ID, newDinosaur);
+		return dinosaur;
 	}
 
-	public String updateAccount(Long id, String accountToUpdate) {
-		Users newAccount = util.getObjectForJSON(accountToUpdate, Users.class);
-		accountMap.put(id, newAccount);
-		return accountToUpdate;
+	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
+		Dinosaur newDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
+		dinosaurMap.put(dinosaurid, newDinosaur);
+		return dinosaurToUpdate;
 	}
 
-	public String deleteAccount(Long id) {
-		accountMap.remove(id);
-		return "{\"message\": \"accout sucessfully removed\"}";
+	public String deleteDinosaur(Long dinosaurid) {
+		dinosaurMap.remove(dinosaurid);
+		return "{\"message\": \"dinosaur sucessfully removed\"}";
 	}
-
-	// private void initAccountMap() {
-	//// Transaction transaction = new Transaction("sample");
-	//// transaction.setId(1L);
-	//// List<Transaction> transactions = new ArrayList<>();
-	//// transactions.add(transaction);
-	//// Users account = new Users("Joe", "Bloggs", "1234", transactions);
-	//// accountMap.put(1L, account);
-	// }
 
 }

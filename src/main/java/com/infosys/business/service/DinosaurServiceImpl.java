@@ -8,26 +8,25 @@ import com.infosys.persistence.repository.DinosaurRepository;
 
 public class DinosaurServiceImpl implements DinosaurService {
 
-	private static final Logger LOGGER = Logger.getLogger(DinosaurService.class);
+//	private static final Logger LOGGER = Logger.getLogger(DinosaurService.class);
 
 	@Inject
 	private DinosaurRepository repo;
 
-	public String getAllAccounts() {
-		LOGGER.info("In AccountServiceImpl getAllAccounts ");
-		return repo.getAllAccounts();
+	public String getAllDinosaurs() {
+		return repo.getAllDinosaurs();
+	}
+	
+	public String addDinosaur(String dinosaur) {
+		return repo.createDinosaur(dinosaur);
 	}
 
-	public String addAccount(String account) {
-		return repo.createAccount(account);
+	public String updateDinosaur(Long dinosaurid, String dinosaur) {
+		return repo.updateDinosaur(dinosaurid, dinosaur);
 	}
 
-	public String updateAccount(Long id, String account) {
-		return repo.updateAccount(id, account);
-	}
-
-	public String deleteAccount(Long id) {
-		return repo.deleteAccount(id);
+	public String deleteDinosaur(Long dinosaurid) {
+		return repo.deleteDinosaur(dinosaurid);
 
 	}
 

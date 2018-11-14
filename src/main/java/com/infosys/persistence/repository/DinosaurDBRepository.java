@@ -25,41 +25,49 @@ public class DinosaurDBRepository implements DinosaurRepository {
 	@Inject
 	private JSONUtil util;
 
-	public String getAllAccounts() {
+	public String getAllDinosaurs() {
 		Query query = manager.createQuery("Select a FROM Account a");
-		Collection<Users> accounts = (Collection<Users>) query.getResultList();
-		return util.getJSONForObject(accounts);
+		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) query.getResultList();
+		return util.getJSONForObject(dinosaur);
 	}
 
 	@Transactional(REQUIRED)
-	public String createAccount(String accout) {
-		Users anAccount = util.getObjectForJSON(accout, Users.class);
-		manager.persist(anAccount);
-		return "{\"message\": \"account has been sucessfully added\"}";
+	public String createDinosaur(String dinosaur) {
+		Dinosaur aDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
+		manager.persist(aDinosaur);
+		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
 	}
 
 	@Transactional(REQUIRED)
-	public String updateAccount(Long id, String accountToUpdate) {
-		Users updatedAccount = util.getObjectForJSON(accountToUpdate, Users.class);
-		Users accountFromDB = findAccount(id);
-		if (accountToUpdate != null) {
-			accountFromDB = updatedAccount;
-			manager.merge(accountFromDB);
+	public String updateDinosaur(Long dinosaurid, String DinosaurToUpdate) {
+		Dinosaur updatedDinosaur = util.getObjectForJSON(DinosaurToUpdate, Dinosaur.class);
+		Dinosaur dinosaurFromDB = findDinosaur(dinosaurid);
+		if (DinosaurToUpdate != null) {
+			dinosaurFromDB = updatedDinosaur;
+			manager.merge(dinosaurFromDB);
 		}
 		return "{\"message\": \"account sucessfully updated\"}";
 	}
+	
+	@Transactional(REQUIRED)
+	public String getDinosaur(Long dinosaurid) {
+		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
+		 return util.getJSONForObject(dinosaurInDB);
+		
+	}
+
 
 	@Transactional(REQUIRED)
-	public String deleteAccount(Long id) {
-		Users accountInDB = findAccount(id);
-		if (accountInDB != null) {
-			manager.remove(accountInDB);
+	public String deleteDinosaur(Long dinosaurid) {
+		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
+		if (dinosaurInDB != null) {
+			manager.remove(dinosaurInDB);
 		}
 		return "{\"message\": \"account sucessfully deleted\"}";
 	}
 
-	private Users findAccount(Long id) {
-		return manager.find(Users.class, id);
+	private Dinosaur findDinosaur(Long dinosaurid) {
+		return manager.find(Dinosaur.class, dinosaurid);
 	}
 
 	public void setManager(EntityManager manager) {

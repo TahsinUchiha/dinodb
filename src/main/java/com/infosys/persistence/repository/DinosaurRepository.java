@@ -1,12 +1,12 @@
 package com.infosys.persistence.repository;
 
 public interface DinosaurRepository {
-	String getAllAccounts();
+	String getAllDinosaurs();
 
-	String createAccount(String accout);
+	String createDinosaur(String dinosaur);
 
-	String updateAccount(Long id, String accountToUpdate);
+	String deleteDinosaur(Long dinosaurid);
 
-	String deleteAccount(Long id);
+	String updateDinosaur(Long dinosaurid, String dinosaur);
 
 }

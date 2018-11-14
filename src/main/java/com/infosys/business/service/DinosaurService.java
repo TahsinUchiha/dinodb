@@ -2,12 +2,15 @@ package com.infosys.business.service;
 
 public interface DinosaurService {
 	
-	String getAllAccounts();
+	String getAllDinosaurs();
 
-	String addAccount(String account);
+	String addDinosaur(String dinosaur);
 
-	String updateAccount(Long id, String account);
+	String updateDinosaur(Long dinosaurid, String dinosaur);
 
-	String deleteAccount(Long id);
+	String deleteDinosaur(Long dinosaurid);
+
+//	String getDinosaur(Long dinosaurid);
+
 
 }
