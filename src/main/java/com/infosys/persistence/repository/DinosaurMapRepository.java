@@ -31,29 +31,36 @@ public class DinosaurMapRepository implements DinosaurRepository {
 	public DinosaurMapRepository() {
 		this.dinosaurMap = new HashMap<Long, Dinosaur>();
 		ID = INITIAL_COUNT;
-//		initAccountMap();
+		initDinosaurMap();
 	}
-
+	
+	@Override
 	public String getAllDinosaurs() {
 		return util.getJSONForObject(dinosaurMap.values());
 	}
-
+	@Override
 	public String createDinosaur(String dinosaur) {
 		ID++;
 		Dinosaur newDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
 		dinosaurMap.put(ID, newDinosaur);
 		return dinosaur;
 	}
-
+	@Override
 	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
 		Dinosaur newDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
 		dinosaurMap.put(dinosaurid, newDinosaur);
 		return dinosaurToUpdate;
 	}
-
+	@Override
 	public String deleteDinosaur(Long dinosaurid) {
 		dinosaurMap.remove(dinosaurid);
 		return "{\"message\": \"dinosaur sucessfully removed\"}";
 	}
+	
+	private void initDinosaurMap() {
+		Dinosaur dinosaur = new Dinosaur("Rex", "1");
+		dinosaurMap.put(1L, dinosaur);
+	}
+
 
 }

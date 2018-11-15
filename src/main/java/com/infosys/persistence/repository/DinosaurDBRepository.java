@@ -24,39 +24,39 @@ public class DinosaurDBRepository implements DinosaurRepository {
 
 	@Inject
 	private JSONUtil util;
-
+	
+	@Override
 	public String getAllDinosaurs() {
-		Query query = manager.createQuery("Select a FROM Account a");
-		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) query.getResultList();
+		Query query = manager.createQuery("Select a FROM Dinosaur a");
+		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
 		return util.getJSONForObject(dinosaur);
 	}
-
+	@Override
 	@Transactional(REQUIRED)
 	public String createDinosaur(String dinosaur) {
 		Dinosaur aDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
 		manager.persist(aDinosaur);
 		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
 	}
-
+	@Override
 	@Transactional(REQUIRED)
-	public String updateDinosaur(Long dinosaurid, String DinosaurToUpdate) {
-		Dinosaur updatedDinosaur = util.getObjectForJSON(DinosaurToUpdate, Dinosaur.class);
+	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
+		Dinosaur updatedDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
 		Dinosaur dinosaurFromDB = findDinosaur(dinosaurid);
-		if (DinosaurToUpdate != null) {
+		if (dinosaurToUpdate != null) {
 			dinosaurFromDB = updatedDinosaur;
 			manager.merge(dinosaurFromDB);
 		}
 		return "{\"message\": \"account sucessfully updated\"}";
 	}
-	
-	@Transactional(REQUIRED)
-	public String getDinosaur(Long dinosaurid) {
-		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
-		 return util.getJSONForObject(dinosaurInDB);
-		
-	}
 
-
+	// @Transactional(REQUIRED)
+	// public String getDinosaur(Long dinosaurid) {
+	// Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
+	// return util.getJSONForObject(dinosaurInDB);
+	//
+	// }
+	@Override
 	@Transactional(REQUIRED)
 	public String deleteDinosaur(Long dinosaurid) {
 		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);

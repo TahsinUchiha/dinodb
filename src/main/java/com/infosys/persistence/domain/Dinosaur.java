@@ -11,8 +11,8 @@ public class Dinosaur {
 	@Enumerated
 	private DinoType type;
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long dinosaurid;
 	private String dinosaurName;
 	private String dinosaurNumber;

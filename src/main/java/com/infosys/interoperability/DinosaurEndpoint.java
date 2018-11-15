@@ -27,8 +27,8 @@ public class DinosaurEndpoint {
 	@Path("/addDinosaur")
 	@POST
 	@Produces({ "application/json" })
-	public String addDinosaur(String dinosaur) {
-		return service.addDinosaur(dinosaur);
+	public String createDinosaur(String dinosaur) {
+		return service.createDinosaur(dinosaur);
 	}
 
 	@Path("/updateDinosaur/{id}")
