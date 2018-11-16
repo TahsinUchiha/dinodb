@@ -43,14 +43,7 @@ public class DinosaurEndpoint {
 	@Produces({ "application/json" })
 	public String deleteDinosaur(@PathParam("id") Long dinosaurid) {
 		return service.deleteDinosaur(dinosaurid);
-
 	}
-//	@Path("/getClassroom/{id}")
-//	@GET
-//	@Produces({ "application/json" })
-//	public String getDinosaur(@PathParam("id") Long dinosaurid) {
-//		return service.getDinosaur(dinosaurid);
-//	}
 
 	public void setService(DinosaurService service) {
 		this.service = service;

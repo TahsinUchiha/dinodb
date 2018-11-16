@@ -24,13 +24,14 @@ public class DinosaurDBRepository implements DinosaurRepository {
 
 	@Inject
 	private JSONUtil util;
-	
+
 	@Override
 	public String getAllDinosaurs() {
 		Query query = manager.createQuery("Select a FROM Dinosaur a");
 		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
 		return util.getJSONForObject(dinosaur);
 	}
+
 	@Override
 	@Transactional(REQUIRED)
 	public String createDinosaur(String dinosaur) {
@@ -38,24 +39,30 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		manager.persist(aDinosaur);
 		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
 	}
+
 	@Override
 	@Transactional(REQUIRED)
 	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
 		Dinosaur updatedDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
 		Dinosaur dinosaurFromDB = findDinosaur(dinosaurid);
 		if (dinosaurToUpdate != null) {
-			dinosaurFromDB = updatedDinosaur;
-			manager.merge(dinosaurFromDB);
+			// for a single a table, we can just merge.
+			// dinosaurFromDB = updatedDinosaur;
+			// manager.merge(dinosaurFromDB);
+			dinosaurFromDB.setDinosaurName(updatedDinosaur.getDinosaurName());
+			dinosaurFromDB.setUsers(updatedDinosaur.getUsers());
+
 		}
 		return "{\"message\": \"account sucessfully updated\"}";
 	}
 
-	// @Transactional(REQUIRED)
-	// public String getDinosaur(Long dinosaurid) {
-	// Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
-	// return util.getJSONForObject(dinosaurInDB);
-	//
-	// }
+	@Transactional(REQUIRED)
+	public String getDinosaur(Long dinosaurid) {
+		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
+		return util.getJSONForObject(dinosaurInDB);
+
+	}
+
 	@Override
 	@Transactional(REQUIRED)
 	public String deleteDinosaur(Long dinosaurid) {

@@ -21,7 +21,7 @@ public class Dinosaur {
 	private Long dinosaurid;
 	private String dinosaurName;
 	private String dinosaurNumber;
-	private String givenDinoName;
+//	@JoinColumn(name = "user_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Users> users;
 
@@ -37,9 +37,11 @@ public class Dinosaur {
 		this.users = users;
 	}
 
-	public Dinosaur(String dinosaurName, String dinosaurNumber) {
+	public Dinosaur(String dinosaurName, String dinosaurNumber, List<Users> users, DinoType type) {
 		this.dinosaurName = dinosaurName;
 		this.dinosaurNumber = dinosaurNumber;
+		this.users = users;
+		this.type = type;
 	}
 
 	public Long getDinosaurid() {
@@ -64,14 +66,6 @@ public class Dinosaur {
 
 	public void setDinosaurNumber(String dinosaurNumber) {
 		this.dinosaurNumber = dinosaurNumber;
-	}
-
-	public String getGivenDinoName() {
-		return givenDinoName;
-	}
-
-	public void setGivenDinoName(String givenDinoName) {
-		this.givenDinoName = givenDinoName;
 	}
 
 	public String giveDinosaur() {

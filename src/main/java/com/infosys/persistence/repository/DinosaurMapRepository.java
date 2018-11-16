@@ -11,13 +11,13 @@ import javax.inject.Inject;
 import javax.transaction.Transaction;
 
 import com.infosys.persistence.domain.Dinosaur;
+import com.infosys.persistence.domain.Users;
 import com.infosys.util.JSONUtil;
 
 //	import com.qa.persistence.domain.Account;
 //	import com.qa.persistence.domain.Transaction;
 //	import com.qa.util.JSONUtil;
 
-@ApplicationScoped
 @Alternative
 public class DinosaurMapRepository implements DinosaurRepository {
 
@@ -31,13 +31,14 @@ public class DinosaurMapRepository implements DinosaurRepository {
 	public DinosaurMapRepository() {
 		this.dinosaurMap = new HashMap<Long, Dinosaur>();
 		ID = INITIAL_COUNT;
-		initDinosaurMap();
+//		initDinosaurMap();
 	}
-	
+
 	@Override
 	public String getAllDinosaurs() {
 		return util.getJSONForObject(dinosaurMap.values());
 	}
+
 	@Override
 	public String createDinosaur(String dinosaur) {
 		ID++;
@@ -45,22 +46,29 @@ public class DinosaurMapRepository implements DinosaurRepository {
 		dinosaurMap.put(ID, newDinosaur);
 		return dinosaur;
 	}
+
 	@Override
 	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
 		Dinosaur newDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
 		dinosaurMap.put(dinosaurid, newDinosaur);
 		return dinosaurToUpdate;
 	}
+
 	@Override
 	public String deleteDinosaur(Long dinosaurid) {
 		dinosaurMap.remove(dinosaurid);
 		return "{\"message\": \"dinosaur sucessfully removed\"}";
 	}
-	
-	private void initDinosaurMap() {
-		Dinosaur dinosaur = new Dinosaur("Rex", "1");
-		dinosaurMap.put(1L, dinosaur);
-	}
 
+//	private void initDinosaurMap() {
+//		// Dinosaur dinosaur = new Dinosaur("Rex", "1");
+//		// dinosaurMap.put(1L, dinosaur);
+//		Users users = new Users();
+//		users.setDinosaurid(1L);
+//		List<Users> userss = new ArrayList<>();
+//		userss.add(users);
+//		Dinosaur dinosaur = new Dinosaur();
+//		dinosaurMap.put(1L, dinosaur);
+//	}
 
 }
