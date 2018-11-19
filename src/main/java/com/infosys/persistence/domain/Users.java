@@ -7,12 +7,19 @@ import javax.persistence.Id;
 
 @Entity
 public class Users {
-
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userid;
 	private String userName;
 	private Long dinosaurid;
+	
+	public Users() {
+		
+	}
+	
+	public Users(String userName) {
+		this.setUserName(userName);
+	}
 
 	public Long getUserid() {
 		return userid;

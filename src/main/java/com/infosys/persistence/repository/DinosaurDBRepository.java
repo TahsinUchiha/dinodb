@@ -21,18 +21,21 @@ public class DinosaurDBRepository implements DinosaurRepository {
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;
-
+	
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+	
 	@Inject
 	private JSONUtil util;
 
-	@Override
+
 	public String getAllDinosaurs() {
 		Query query = manager.createQuery("Select a FROM Dinosaur a");
-		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
+		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) query.getResultList();
 		return util.getJSONForObject(dinosaur);
 	}
 
-	@Override
 	@Transactional(REQUIRED)
 	public String createDinosaur(String dinosaur) {
 		Dinosaur aDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
@@ -40,7 +43,7 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
 	}
 
-	@Override
+
 	@Transactional(REQUIRED)
 	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
 		Dinosaur updatedDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
@@ -75,10 +78,6 @@ public class DinosaurDBRepository implements DinosaurRepository {
 
 	private Dinosaur findDinosaur(Long dinosaurid) {
 		return manager.find(Dinosaur.class, dinosaurid);
-	}
-
-	public void setManager(EntityManager manager) {
-		this.manager = manager;
 	}
 
 	public void setUtil(JSONUtil util) {

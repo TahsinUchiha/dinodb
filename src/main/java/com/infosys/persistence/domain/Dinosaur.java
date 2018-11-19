@@ -13,8 +13,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Dinosaur {
-	@Enumerated
-	private DinoType type;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,11 +36,11 @@ public class Dinosaur {
 		this.users = users;
 	}
 
-	public Dinosaur(String dinosaurName, String dinosaurNumber, List<Users> users, DinoType type) {
-		this.dinosaurName = dinosaurName;
-		this.dinosaurNumber = dinosaurNumber;
+	public Dinosaur(String dinosaurName, String dinosaurNumber, List<Users> users) {
+		this.setDinosaurName(dinosaurName);
+		this.setDinosaurNumber(dinosaurNumber);
 		this.users = users;
-		this.type = type;
+
 	}
 
 	public Long getDinosaurid() {
