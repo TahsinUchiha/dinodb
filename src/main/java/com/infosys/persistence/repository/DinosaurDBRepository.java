@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import com.infosys.persistence.domain.*;
@@ -27,9 +28,11 @@ public class DinosaurDBRepository implements DinosaurRepository {
 
 	@Override
 	public String getAllDinosaurs() {
-		Query query = manager.createQuery("Select a FROM Dinosaur a");
-		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
-		return util.getJSONForObject(dinosaur);
+//		Query query = manager.createQuery("Select a FROM Dinosaur a");
+//		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
+//		return util.getJSONForObject(dinosaur);
+	    TypedQuery<Dinosaur> query = manager.createQuery("SELECT d FROM Dinosaur d", Dinosaur.class);
+        return util.getJSONForObject(query.getResultList());
 	}
 
 	@Override
