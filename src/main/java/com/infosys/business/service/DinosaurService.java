@@ -6,8 +6,12 @@ public interface DinosaurService {
 
 	String createDinosaur(String dinosaur);
 
+	String deleteDinosaur(Long dinosaurid);
+
+	String getDinosaur(Long dinosaurid);
+
 	String updateDinosaur(Long dinosaurid, String dinosaur);
 
-	String deleteDinosaur(Long dinosaurid);
+	String getAllUsers();
 
 }

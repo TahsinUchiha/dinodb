@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.infosys.business.service.DinosaurService;
+import com.infosys.persistence.repository.DinosaurRepository;
 
 @Path("/dinosaur")
 public class DinosaurEndpoint {
@@ -23,6 +24,20 @@ public class DinosaurEndpoint {
 	public String getAllDinosaurs() {
 		return service.getAllDinosaurs();
 	}
+	
+	@Path("/getAllUsers")
+	@GET
+	@Produces({ "application/json" })
+	public String getAllUsers() {
+		return service.getAllUsers();
+	}
+
+	@Path("/getDinosaur/{id}")
+	@GET
+	@Produces({ "application/json" })
+	public String getDinosaur(@PathParam("id") Long dinosaurid) {
+		return service.getDinosaur(dinosaurid);
+	}
 
 	@Path("/addDinosaur")
 	@POST
@@ -34,7 +49,8 @@ public class DinosaurEndpoint {
 	@Path("/updateDinosaur/{id}")
 	@PUT
 	@Produces({ "application/json" })
-	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) {
+	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) 
+	{
 		return service.updateDinosaur(dinosaurid, dinosaur);
 	}
 
@@ -43,14 +59,7 @@ public class DinosaurEndpoint {
 	@Produces({ "application/json" })
 	public String deleteDinosaur(@PathParam("id") Long dinosaurid) {
 		return service.deleteDinosaur(dinosaurid);
-
 	}
-//	@Path("/getClassroom/{id}")
-//	@GET
-//	@Produces({ "application/json" })
-//	public String getDinosaur(@PathParam("id") Long dinosaurid) {
-//		return service.getDinosaur(dinosaurid);
-//	}
 
 	public void setService(DinosaurService service) {
 		this.service = service;

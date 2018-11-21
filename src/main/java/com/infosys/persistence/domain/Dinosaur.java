@@ -1,29 +1,50 @@
 package com.infosys.persistence.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Dinosaur {
+	
 	@Enumerated
 	private DinoType type;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "dino_ID")
 	private Long dinosaurid;
+	@Column(length = 100)
 	private String dinosaurName;
-	private String dinosaurNumber;
+//	@JoinColumn(name = "dino_ID", referencedColumnName = "dino_ID")
+	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	private List<Users> users;
 
 	public Dinosaur() {
 
 	}
 
-	public Dinosaur(String dinosaurName, String dinosaurNumber) {
+	public Dinosaur(Long dinosaurid, String dinosaurName, DinoType type) {
+		this.dinosaurid = dinosaurid;
 		this.dinosaurName = dinosaurName;
-		this.dinosaurNumber = dinosaurNumber;
+		this.type = type;
+	}
+
+	public DinoType getType() {
+		return type;
+	}
+
+	public void setType(DinoType type) {
+		this.type = type;
 	}
 
 	public Long getDinosaurid() {
@@ -42,12 +63,5 @@ public class Dinosaur {
 		this.dinosaurName = dinosaurName;
 	}
 
-	public String getDinosaurNumber() {
-		return dinosaurNumber;
-	}
-
-	public void setDinosaurNumber(String dinosaurNumber) {
-		this.dinosaurNumber = dinosaurNumber;
-	}
-
+	
 }
