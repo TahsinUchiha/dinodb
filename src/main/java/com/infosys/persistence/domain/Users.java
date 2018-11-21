@@ -16,15 +16,21 @@ public class Users {
 	private String userName;
 //	@Column(name = "dino_ID")
 //	private Long dinosaurid;
-//	@Column(length = 100)
-//	private String firstName;
-//	@Column(length = 100)
-//	private String lastName;
+	@Column(length = 100)
+	private String firstName;
+	@Column(length = 100)
+	private String lastName;
 	
 	
 //	
 	public Users() {
 		
+	}
+	
+	public Users(String userName, String firstName, String lastName) {
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public Long getUserID() {

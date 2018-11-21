@@ -13,5 +13,13 @@ public interface DinosaurService {
 	String updateDinosaur(Long dinosaurid, String dinosaur);
 
 	String getAllUsers();
+	
+	String createUsers(String users);
+
+	String deleteUsers(Long userID);
+
+	String getUsers(Long userID);
+
+	String updateUsers(Long userID, String users);
 
 }

@@ -25,6 +25,10 @@ public class Dinosaur {
 	private Long dinosaurid;
 	@Column(length = 100)
 	private String dinosaurName;
+	@Column(length = 100)
+	private String diet;
+	@Column(length = 10000)
+	private String description;
 //	@JoinColumn(name = "dino_ID", referencedColumnName = "dino_ID")
 	//@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	private List<Users> users;
@@ -33,10 +37,28 @@ public class Dinosaur {
 
 	}
 
-	public Dinosaur(Long dinosaurid, String dinosaurName, DinoType type) {
+	public String getDiet() {
+		return diet;
+	}
+
+	public void setDiet(String diet) {
+		this.diet = diet;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Dinosaur(Long dinosaurid, String dinosaurName, DinoType type, String diet, String description) {
 		this.dinosaurid = dinosaurid;
 		this.dinosaurName = dinosaurName;
 		this.type = type;
+		this.diet = diet;
+		this.description = description;
 	}
 
 	public DinoType getType() {
