@@ -1,5 +1,6 @@
 package com.infosys.persistence.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,16 +11,22 @@ public class Users {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private Long userid;
+	private Long userID;
+	@Column(length = 100)
 	private String userName;
+	@Column(name = "dino_ID")
 	private Long dinosaurid;
-
-	public Long getUserid() {
-		return userid;
+	
+	public Users() {
+		
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public Long getUserID() {
+		return userID;
+	}
+
+	public void setUserID(Long userID) {
+		this.userID = userID;
 	}
 
 	public String getUserName() {

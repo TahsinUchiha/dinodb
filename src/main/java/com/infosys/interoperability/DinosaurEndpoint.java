@@ -9,19 +9,26 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.infosys.business.service.DinosaurService;
+import com.infosys.persistence.repository.DinosaurRepository;
 
 @Path("/dinosaur")
 public class DinosaurEndpoint {
 
 	@Inject
-	private DinosaurService service;
+	private DinosaurRepository service;
 
 	@Path("/getAllDinosaurs")
 	@GET
 	@Produces({ "application/json" })
 	public String getAllDinosaurs() {
 		return service.getAllDinosaurs();
+	}
+
+	@Path("/getDinosaur/{id}")
+	@GET
+	@Produces({ "application/json" })
+	public String getDinosaur(@PathParam("id") Long dinosaurid) {
+		return service.getDinosaur(dinosaurid);
 	}
 
 	@Path("/addDinosaur")
@@ -34,7 +41,8 @@ public class DinosaurEndpoint {
 	@Path("/updateDinosaur/{id}")
 	@PUT
 	@Produces({ "application/json" })
-	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) {
+	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) 
+	{
 		return service.updateDinosaur(dinosaurid, dinosaur);
 	}
 
@@ -45,7 +53,7 @@ public class DinosaurEndpoint {
 		return service.deleteDinosaur(dinosaurid);
 	}
 
-	public void setService(DinosaurService service) {
+	public void setService(DinosaurRepository service) {
 		this.service = service;
 	}
 

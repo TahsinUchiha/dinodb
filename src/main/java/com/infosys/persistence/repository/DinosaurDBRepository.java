@@ -20,72 +20,67 @@ import com.infosys.util.JSONUtil;
 @Default
 public class DinosaurDBRepository implements DinosaurRepository {
 
-	@PersistenceContext(unitName = "primary")
-	private EntityManager manager;
-
 	@Inject
 	private JSONUtil util;
 
-	@Override
+	@PersistenceContext(unitName = "primary")
+	private EntityManager manager;
+
 	public String getAllDinosaurs() {
-//		Query query = manager.createQuery("Select a FROM Dinosaur a");
-//		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) ((javax.persistence.Query) query).getResultList();
-//		return util.getJSONForObject(dinosaur);
-	    TypedQuery<Dinosaur> query = manager.createQuery("SELECT d FROM Dinosaur d", Dinosaur.class);
-        return util.getJSONForObject(query.getResultList());
+		Query query = manager.createQuery("Select a FROM Dinosaur a");
+		Collection<Dinosaur> dinosaur = (Collection<Dinosaur>) query.getResultList();
+		return util.getJSONForObject(dinosaur);
+		// TypedQuery<Dinosaur> query = manager.createQuery("SELECT d FROM Dinosaur d",
+		// Dinosaur.class);
+		// return util.getJSONForObject(query.getResultList());
 	}
 
-	@Override
 	@Transactional(REQUIRED)
 	public String createDinosaur(String dinosaur) {
 		Dinosaur aDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
-		manager.persist(aDinosaur);
+		manager.merge(aDinosaur);
 		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
 	}
 
-	@Override
-	@Transactional(REQUIRED)
-	public String updateDinosaur(Long dinosaurid, String dinosaurToUpdate) {
-		Dinosaur updatedDinosaur = util.getObjectForJSON(dinosaurToUpdate, Dinosaur.class);
-		Dinosaur dinosaurFromDB = findDinosaur(dinosaurid);
-		if (dinosaurToUpdate != null) {
-			// for a single a table, we can just merge.
-			// dinosaurFromDB = updatedDinosaur;
-			// manager.merge(dinosaurFromDB);
-			dinosaurFromDB.setDinosaurName(updatedDinosaur.getDinosaurName());
-			dinosaurFromDB.setUsers(updatedDinosaur.getUsers());
-
-		}
-		return "{\"message\": \"account sucessfully updated\"}";
-	}
 
 	@Transactional(REQUIRED)
-	public String getDinosaur(Long dinosaurid) {
+	public String updateDinosaur(Long dinosaurid, String dinosaur) {
+		Dinosaur updatedDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
 		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
-		return util.getJSONForObject(dinosaurInDB);
+		// if (dinosaurToUpdate != null) {
+		// for a single a table, we can just merge.
+		// dinosaurFromDB = updatedDinosaur;
+		// manager.merge(dinosaurFromDB);
+		dinosaurInDB.setDinosaurName(updatedDinosaur.getDinosaurName());
+		dinosaurInDB.setUsers(updatedDinosaur.getUsers());
 
+		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
 	}
-
-	@Override
+	
 	@Transactional(REQUIRED)
 	public String deleteDinosaur(Long dinosaurid) {
 		Dinosaur dinosaurInDB = findDinosaur(dinosaurid);
 		if (dinosaurInDB != null) {
 			manager.remove(dinosaurInDB);
 		}
-		return "{\"message\": \"account sucessfully deleted\"}";
+		return "{\"message\": \"Dinosaur sucessfully deleted\"}";
 	}
-
+	
 	private Dinosaur findDinosaur(Long dinosaurid) {
 		return manager.find(Dinosaur.class, dinosaurid);
 	}
 
-	public void setManager(EntityManager manager) {
-		this.manager = manager;
+	public String getDinosaur(Long dinosaurid) {
+		Dinosaur aDinosaur = manager.find(Dinosaur.class, dinosaurid);
+		return util.getJSONForObject(aDinosaur);
 	}
 
-	public void setUtil(JSONUtil util) {
-		this.util = util;
-	}
+	// public void setManager(EntityManager manager) {
+	// this.manager = manager;
+	// }
+	//
+	// public void setUtil(JSONUtil util) {
+	// this.util = util;
+	// }
 
 }
