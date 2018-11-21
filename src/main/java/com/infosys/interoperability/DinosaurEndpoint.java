@@ -9,13 +9,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import com.infosys.business.service.DinosaurService;
 import com.infosys.persistence.repository.DinosaurRepository;
 
 @Path("/dinosaur")
 public class DinosaurEndpoint {
 
 	@Inject
-	private DinosaurRepository service;
+	private DinosaurService service;
 
 	@Path("/getAllDinosaurs")
 	@GET
@@ -60,7 +61,7 @@ public class DinosaurEndpoint {
 		return service.deleteDinosaur(dinosaurid);
 	}
 
-	public void setService(DinosaurRepository service) {
+	public void setService(DinosaurService service) {
 		this.service = service;
 	}
 

@@ -16,6 +16,11 @@ public class Users {
 	private String userName;
 //	@Column(name = "dino_ID")
 //	private Long dinosaurid;
+//	@Column(length = 100)
+//	private String firstName;
+//	@Column(length = 100)
+//	private String lastName;
+	
 	
 //	
 	public Users() {
