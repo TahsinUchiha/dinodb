@@ -23,6 +23,13 @@ public class DinosaurEndpoint {
 	public String getAllDinosaurs() {
 		return service.getAllDinosaurs();
 	}
+	
+	@Path("/getAllUsers")
+	@GET
+	@Produces({ "application/json" })
+	public String getAllUsers() {
+		return service.getAllUsers();
+	}
 
 	@Path("/getDinosaur/{id}")
 	@GET

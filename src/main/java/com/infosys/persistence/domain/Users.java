@@ -14,9 +14,10 @@ public class Users {
 	private Long userID;
 	@Column(length = 100)
 	private String userName;
-	@Column(name = "dino_ID")
-	private Long dinosaurid;
+//	@Column(name = "dino_ID")
+//	private Long dinosaurid;
 	
+//	
 	public Users() {
 		
 	}
@@ -37,12 +38,5 @@ public class Users {
 		this.userName = userName;
 	}
 
-	public Long getDinosaurid() {
-		return dinosaurid;
-	}
-
-	public void setDinosaurid(Long dinosaurid) {
-		this.dinosaurid = dinosaurid;
-	}
 
 }

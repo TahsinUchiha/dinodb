@@ -34,12 +34,25 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		// Dinosaur.class);
 		// return util.getJSONForObject(query.getResultList());
 	}
+	
+	public String getAllUsers() {
+		Query query1 = manager.createQuery("Select b FROM Users b");
+		Collection<Users> users = (Collection<Users>) query1.getResultList();
+		return util.getJSONForObject(users);
+	}
 
 	@Transactional(REQUIRED)
 	public String createDinosaur(String dinosaur) {
 		Dinosaur aDinosaur = util.getObjectForJSON(dinosaur, Dinosaur.class);
 		manager.merge(aDinosaur);
 		return "{\"message\": \"Dinosaur has been sucessfully added\"}";
+	}
+	
+	@Transactional(REQUIRED)
+	public String createUsers(String users) {
+		Users aUser = util.getObjectForJSON(users, Users.class);
+		manager.merge(aUser);
+		return "{\"message\": \"User has been sucessfully added\"}";
 	}
 
 
@@ -52,9 +65,27 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		// dinosaurFromDB = updatedDinosaur;
 		// manager.merge(dinosaurFromDB);
 		dinosaurInDB.setDinosaurName(updatedDinosaur.getDinosaurName());
-		dinosaurInDB.setUsers(updatedDinosaur.getUsers());
+	//	dinosaurInDB.setUsers(updatedDinosaur.getUsers());
 
 		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
+	}
+	
+	@Transactional(REQUIRED)
+	public String updateUsers(Long userID, String users) {
+		Users updatedUser = util.getObjectForJSON(users, Users.class);
+		Users usersInDB = findUsers(userID);
+		// if (dinosaurToUpdate != null) {
+		// for a single a table, we can just merge.
+		// dinosaurFromDB = updatedDinosaur;
+		// manager.merge(dinosaurFromDB);
+		usersInDB.setUserName(updatedUser.getUserName());
+	//	.setUsers(updatedDinosaur.getUsers());
+
+		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
+	}
+	
+	private Users findUsers(Long userID) {
+		return manager.find(Users.class, userID);
 	}
 	
 	@Transactional(REQUIRED)
@@ -66,6 +97,15 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		return "{\"message\": \"Dinosaur sucessfully deleted\"}";
 	}
 	
+	@Transactional(REQUIRED)
+	public String deleteUsers(Long userID) {
+		Users usersInDB = findUsers(userID);
+		if (usersInDB != null) {
+			manager.remove(usersInDB);
+		}
+		return "{\"message\": \"Dinosaur sucessfully deleted\"}";
+	}
+	
 	private Dinosaur findDinosaur(Long dinosaurid) {
 		return manager.find(Dinosaur.class, dinosaurid);
 	}
@@ -73,6 +113,11 @@ public class DinosaurDBRepository implements DinosaurRepository {
 	public String getDinosaur(Long dinosaurid) {
 		Dinosaur aDinosaur = manager.find(Dinosaur.class, dinosaurid);
 		return util.getJSONForObject(aDinosaur);
+	}
+	
+	public String getUsers(Long userID) {
+		Users aUser = manager.find(Users.class, userID);
+		return util.getJSONForObject(aUser);
 	}
 
 	// public void setManager(EntityManager manager) {

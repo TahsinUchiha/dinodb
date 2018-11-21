@@ -13,5 +13,7 @@ public interface DinosaurRepository {
 	String getDinosaur(Long dinosaurid);
 
 	String updateDinosaur(Long dinosaurid, String dinosaur);
+	
+	String getAllUsers();
 
 }
