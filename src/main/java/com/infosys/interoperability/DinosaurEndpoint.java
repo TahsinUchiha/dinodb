@@ -24,14 +24,13 @@ public class DinosaurEndpoint {
 	public String getAllDinosaurs() {
 		return service.getAllDinosaurs();
 	}
-	
+
 	@Path("/getAllUsers")
 	@GET
 	@Produces({ "application/json" })
 	public String getAllUsers() {
 		return service.getAllUsers();
 	}
-	
 
 	@Path("/getDinosaur/{id}")
 	@GET
@@ -39,7 +38,7 @@ public class DinosaurEndpoint {
 	public String getDinosaur(@PathParam("id") Long dinosaurid) {
 		return service.getDinosaur(dinosaurid);
 	}
-	
+
 	@Path("/getUsers/{id}")
 	@GET
 	@Produces({ "application/json" })
@@ -53,7 +52,7 @@ public class DinosaurEndpoint {
 	public String createDinosaur(String dinosaur) {
 		return service.createDinosaur(dinosaur);
 	}
-	
+
 	@Path("/addUser")
 	@POST
 	@Produces({ "application/json" })
@@ -64,19 +63,16 @@ public class DinosaurEndpoint {
 	@Path("/updateDinosaur/{id}")
 	@PUT
 	@Produces({ "application/json" })
-	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) 
-	{
+	public String updateDinosaur(@PathParam("id") Long dinosaurid, String dinosaur) {
 		return service.updateDinosaur(dinosaurid, dinosaur);
 	}
-	
+
 	@Path("/updateUsers/{id}")
 	@PUT
 	@Produces({ "application/json" })
-	public String updateUsers(@PathParam("id") Long userID, String users) 
-	{
+	public String updateUsers(@PathParam("id") Long userID, String users) {
 		return service.updateUsers(userID, users);
 	}
-
 
 	@Path("/deleteDinosaur/{id}")
 	@DELETE
@@ -88,7 +84,7 @@ public class DinosaurEndpoint {
 	public void setService(DinosaurService service) {
 		this.service = service;
 	}
-	
+
 	@Path("/deleteUsers/{id}")
 	@DELETE
 	@Produces({ "application/json" })
