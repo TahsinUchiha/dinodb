@@ -16,13 +16,15 @@ import javax.persistence.OneToMany;
 @Entity
 public class Dinosaur {
 	
-	@Enumerated
-	private DinoType type;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "dino_ID")
 	private Long dinosaurid;
+	
+	@Enumerated
+	private DinoType type;
+	
 	@Column(length = 100)
 	private String dinosaurName;
 	@Column(length = 100)

@@ -65,7 +65,11 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		// dinosaurFromDB = updatedDinosaur;
 		// manager.merge(dinosaurFromDB);
 		dinosaurInDB.setDinosaurName(updatedDinosaur.getDinosaurName());
-	//	dinosaurInDB.setUsers(updatedDinosaur.getUsers());
+		dinosaurInDB.setType(updatedDinosaur.getType());
+		dinosaurInDB.setDescription(updatedDinosaur.getDescription());
+		dinosaurInDB.setDiet(updatedDinosaur.getDiet());
+		
+		
 
 		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
 	}
@@ -74,12 +78,10 @@ public class DinosaurDBRepository implements DinosaurRepository {
 	public String updateUsers(Long userID, String users) {
 		Users updatedUser = util.getObjectForJSON(users, Users.class);
 		Users usersInDB = findUsers(userID);
-		// if (dinosaurToUpdate != null) {
-		// for a single a table, we can just merge.
-		// dinosaurFromDB = updatedDinosaur;
-		// manager.merge(dinosaurFromDB);
 		usersInDB.setUserName(updatedUser.getUserName());
-	//	.setUsers(updatedDinosaur.getUsers());
+		usersInDB.setFirstName(updatedUser.getFirstName());
+		usersInDB.setLastName(updatedUser.getLastName());
+
 
 		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
 	}
