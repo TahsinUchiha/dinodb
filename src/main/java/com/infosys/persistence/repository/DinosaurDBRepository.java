@@ -83,7 +83,7 @@ public class DinosaurDBRepository implements DinosaurRepository {
 		usersInDB.setLastName(updatedUser.getLastName());
 
 
-		return "{\"message\": \"Dinosaur has been  sucessfully updated\"}";
+		return "{\"message\": \"User has been  sucessfully updated\"}";
 	}
 	
 	private Users findUsers(Long userID) {
